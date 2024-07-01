@@ -11,10 +11,10 @@ const SearchBarContainer = styled(Box)`
     margin-bottom: 3;
 `
 
-function SearchBar() {
+function SearchBar({paramQuery = ""}) {
 
     const navigate = useNavigate()
-    const [query, setQuery] = useState('')
+    const [query, setQuery] = useState(paramQuery)
 
     const onSearch = () => navigate(`/questions?query=${encodeURIComponent(query)}`)
 
