@@ -7,12 +7,12 @@ import useSearchQuestion from "../hook/useSearchQuestion.jsx";
 function QuestionPage() {
 
     const [searchParams] = useSearchParams()
-    const query = searchParams.get('query')
+    const query = searchParams.get('query') ?? ''
     const {data} = useSearchQuestion(query);
 
     return (
         <Layout>
-            <SearchBar/>
+            <SearchBar paramQuery={query}/>
             <QuestionList questions={data?.data?.data?.content ?? []}/>
         </Layout>
     );
