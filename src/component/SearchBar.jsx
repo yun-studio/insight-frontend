@@ -1,28 +1,25 @@
-// 검색창 컴포넌트를 만들거야. TextField, SearchIcon을 사용해서 만들거야. 검색 아이콘을 누르면 react-query를 이용해서 /questions로 요청을 보내는데, 파라미터로 query 가 있어. 만들어줘.
-
-import {useQuery} from "@tanstack/react-query";
-import axios from "axios";
-import {TextField} from "@mui/material";
+import {Box, TextField} from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
+import {useNavigate} from "react-router-dom";
+import styled from "@emotion/styled";
 import {useState} from "react";
 
-function SearchBar({setQuestions}) {
+const SearchBarContainer = styled(Box)`
+    display: flex;
+    justify-content: center;    
+    align-items: center;
+    margin-bottom: 3;
+`
+
+function SearchBar() {
+
+    const navigate = useNavigate()
     const [query, setQuery] = useState('')
 
-    const questionListQuery = useQuery({
-        queryKey: ['questions'],
-        queryFn: () => axios.get(`${import.meta.env.VITE_SERVER_URL}/questions`, {
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            params: {
-                query: query
-            }
-        }).then((res) => setQuestions(res.data.data.content))
-    })
+    const onSearch = () => navigate(`/questions?query=${encodeURIComponent(query)}`)
 
     return (
-        <div>
+        <SearchBarContainer>
             <TextField
                 id="outlined-basic"
                 fullWidth
@@ -34,9 +31,9 @@ function SearchBar({setQuestions}) {
                 onChange={(event) => setQuery(event.target.value)}
             />
             <SearchIcon
-                onClick={() => questionListQuery.refetch()}
+                onClick={() => onSearch()}
             />
-        </div>
+        </SearchBarContainer>
     );
 }
 
