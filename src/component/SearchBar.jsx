@@ -1,15 +1,7 @@
-import {Box, TextField} from "@mui/material";
+import {IconButton, InputBase, Paper} from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import {useNavigate} from "react-router-dom";
-import styled from "@emotion/styled";
 import {useState} from "react";
-
-const SearchBarContainer = styled(Box)`
-    display: flex;
-    justify-content: center;    
-    align-items: center;
-    margin-bottom: 3;
-`
 
 function SearchBar({paramQuery = ""}) {
 
@@ -19,21 +11,25 @@ function SearchBar({paramQuery = ""}) {
     const onSearch = () => navigate(`/questions?query=${encodeURIComponent(query)}`)
 
     return (
-        <SearchBarContainer>
-            <TextField
-                id="outlined-basic"
-                fullWidth
-                label="Outlined"
-                variant="outlined"
-                multiline
-                sx={{width: 500, height: 50, marginRight: 2}}
+        <Paper
+            component="form"
+            sx={{p: '2px 4px', display: 'flex', alignItems: 'center', width: 400, marginY: 3}}
+            onSubmit={(event) => {
+                event.preventDefault()
+                onSearch()
+            }}
+        >
+            <InputBase
+                sx={{ml: 1, flex: 1}}
+                placeholder="질문을 검색하세요."
+                inputProps={{'aria-label': 'searchQuery'}}
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
             />
-            <SearchIcon
-                onClick={() => onSearch()}
-            />
-        </SearchBarContainer>
+            <IconButton type="submit" sx={{p: '10px'}} aria-label="search">
+                <SearchIcon/>
+            </IconButton>
+        </Paper>
     );
 }
 
