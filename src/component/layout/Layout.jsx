@@ -1,6 +1,11 @@
-import {Container} from "@mui/material";
+import {Box, Container} from "@mui/material";
 import styled from "@emotion/styled";
 import Header from "./header/Header.jsx";
+
+const LayoutContainer = styled(Box)`
+    max-width: 430px;
+    margin: auto;
+`
 
 const CustomContainer = styled(Container)`
     display: flex;
@@ -10,14 +15,14 @@ const CustomContainer = styled(Container)`
 function Layout({children}) {
 
     return (
-        <>
+        <LayoutContainer>
             <Header/>
             <CustomContainer>
                 <main>
                     {children}
                 </main>
             </CustomContainer>
-        </>
+        </LayoutContainer>
     )
 }
 
