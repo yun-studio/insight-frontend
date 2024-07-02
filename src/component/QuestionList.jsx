@@ -1,13 +1,35 @@
 import QuestionCard from "./QuestionCard.jsx";
+import {List, ListItem} from "@mui/material";
 
 function QuestionList({questions}) {
     return (
         <>
-            {
-                questions.map((question) => (
-                    <QuestionCard key={question.id} data={question}/>
-                ))
-            }
+            <List
+                sx={{
+                    width: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                }}
+            >
+                {
+                    questions.map((question) => (
+                        <ListItem
+                            key={question.id}
+                            sx={{
+                                width: '100%',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'center',
+                            }}
+                        >
+                            <QuestionCard
+                                data={question}
+                            />
+                        </ListItem>
+                    ))
+                }
+            </List>
         </>
     )
 }
